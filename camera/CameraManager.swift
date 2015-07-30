@@ -58,6 +58,8 @@ public class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate {
 
     /// Property to determine if manager should write the resources to the phone library. Default value is true.
     public var writeFilesToPhoneLibrary = true
+    
+    public var observeRotation = true
 
     /// The Bool property to determine if current device has front camera.
     public var hasFrontCamera: Bool = {
@@ -510,6 +512,9 @@ public class CameraManager: NSObject, AVCaptureFileOutputRecordingDelegate {
     
     @objc private func _orientationChanged()
     {
+        if !observeRotation{
+            return
+        }
         var currentConnection: AVCaptureConnection?;
         switch self.cameraOutputMode {
         case .StillImage:
